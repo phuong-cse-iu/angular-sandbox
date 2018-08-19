@@ -1,0 +1,13 @@
+<h2>Users</h2>
+<ul>
+  <li *ngFor="let user of users">
+    <h2>{{user["firstName"]}}, {{user["lastName"]}}</h2>
+    <ul>
+      <li>Age: {{ user.age }}</li>
+      <li>City: {{ user.address.city }}</li>
+      <li>Street: {{ user.address.street }}</li>
+      <li>State: {{ user.address.state }}</li>
+    </ul>
+  </li>
+</ul>
+
