@@ -1,7 +1,8 @@
 <h2>Users</h2>
 <button class="btn btn-block mb-3" [ngClass]="currentClasses">Add New User</button>
 <ul class="list-unstyled" *ngIf="loaded && users?.length > 0">
-  <li *ngFor="let user of users" class="card card-body mb-2" [class.bg-light]="user.isActive">
+  <li *ngFor="let user of users" class="card card-body mb-2" [class.bg-light]="user.isActive"
+      [style.border-color]="user.isActive ? 'green' : ''">
     <div class="row">
       <div class="col-sm-4">
         <!-- <img [src]="user.image"> -->
@@ -9,7 +10,7 @@
         <!-- <img bind-src="user.image" alt="" class="img-fluid"> -->
       </div>
       <div class="col-sm 8">
-        <h2>{{user["firstName"]}}, {{user["lastName"]}}</h2>
+        <h3 [ngStyle]="currentStyles">{{user["firstName"]}}, {{user["lastName"]}}</h3>
         <ul *ngIf="showExtended" class="list-group">
           <li class="list-group-item">Age: {{ user.age }}</li>
           <li class="list-group-item">City: {{ user.address.city }}</li>
