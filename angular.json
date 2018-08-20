@@ -23,9 +23,14 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "../my-first-angular-app/node_modules/bootstrap/dist/css/bootstrap.css"
             ],
-            "scripts": []
+            "scripts": [
+              "../my-first-angular-app/node_modules/jquery/dist/jquery.js",
+              "../my-first-angular-app/node_modules/popper.js/dist/umd/popper.js",
+              "../my-first-angular-app/node_modules/bootstrap/dist/js/bootstrap.js"
+            ]
           },
           "configurations": {
             "production": {
