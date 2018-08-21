@@ -1,5 +1,7 @@
 <h2>Users</h2>
-<button class="btn btn-block mb-3" [ngClass]="currentClasses">Add New User</button>
+<button (click)="addUser({firstName: 'Mary', lastName: 'Jackson', isActive: true})" class="btn btn-block mb-3"
+        [ngClass]="currentClasses">Add New User
+</button>
 <ul class="list-unstyled" *ngIf="loaded && users?.length > 0">
   <li *ngFor="let user of users" class="card card-body mb-2" [class.bg-light]="user.isActive"
       [style.border-color]="user.isActive ? 'green' : ''">
@@ -10,12 +12,14 @@
         <!-- <img bind-src="user.image" alt="" class="img-fluid"> -->
       </div>
       <div class="col-sm 8">
-        <h3 [ngStyle]="currentStyles">{{user["firstName"]}}, {{user["lastName"]}}</h3>
+        <h3 [ngStyle]="currentStyles">{{user["firstName"] | uppercase}}, {{user["lastName"]}}</h3>
         <ul *ngIf="showExtended" class="list-group">
           <li class="list-group-item">Age: {{ user.age }}</li>
           <li class="list-group-item">City: {{ user.address.city }}</li>
           <li class="list-group-item">Street: {{ user.address.street }}</li>
           <li class="list-group-item">State: {{ user.address.state }}</li>
+          <li class="list-group-item">Balance: {{user.balance | currency}}</li>
+          <li class="list-group-item">Date: {{user.registered | date:"longDate"}}</li>
         </ul>
       </div>
     </div>

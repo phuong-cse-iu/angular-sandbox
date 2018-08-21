@@ -8,7 +8,7 @@ import {User} from '../../models/User';
 })
 export class UsersComponent implements OnInit {
   users: User[];
-  showExtended = true;
+  showExtended = false;
   loaded = false;
   enableAdd = true;
   currentClasses = {};
@@ -29,7 +29,9 @@ export class UsersComponent implements OnInit {
             state: 'MA'
           },
           image: 'http://lorempixel.com/600/600/people/3',
-          isActive: true
+          isActive: true,
+          balance: 100,
+          registered: new Date('01/02/2018 08:30:00')
         },
         {
           firstName: 'Karen',
@@ -41,7 +43,9 @@ export class UsersComponent implements OnInit {
             state: 'MA'
           },
           image: 'http://lorempixel.com/600/600/people/1',
-          isActive: false
+          isActive: false,
+          balance: 200,
+          registered: new Date('01/10/2018 11:47:00')
         },
         {
           firstName: 'Kevin',
@@ -53,7 +57,9 @@ export class UsersComponent implements OnInit {
             state: 'MA'
           },
           image: 'http://lorempixel.com/600/600/people/2',
-          isActive: true
+          isActive: true,
+          balance: 148,
+          registered: new Date('11/25/2018 08:59:00')
         },
       ];
       this.loaded = true;
@@ -75,5 +81,13 @@ export class UsersComponent implements OnInit {
       'padding-top': this.showExtended ? '0' : '40px',
       'font-size': this.showExtended ? '' : '40px'
     };
+  }
+
+  fireEvent(e) {
+    console.log(e.type);
+  }
+
+  addUser(user: User) {
+    this.users.push(user);
   }
 }
