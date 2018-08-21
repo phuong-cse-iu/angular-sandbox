@@ -8,11 +8,12 @@ import {User} from '../../models/User';
 })
 export class UsersComponent implements OnInit {
   users: User[];
-  showExtended = false;
+  showExtended = true;
   loaded = false;
   enableAdd = true;
   currentClasses = {};
   currentStyles = {};
+  showUserForm: false;
 
   constructor() { }
 
@@ -31,7 +32,8 @@ export class UsersComponent implements OnInit {
           image: 'http://lorempixel.com/600/600/people/3',
           isActive: true,
           balance: 100,
-          registered: new Date('01/02/2018 08:30:00')
+          registered: new Date('01/02/2018 08:30:00'),
+          hide: true
         },
         {
           firstName: 'Karen',
@@ -45,7 +47,8 @@ export class UsersComponent implements OnInit {
           image: 'http://lorempixel.com/600/600/people/1',
           isActive: false,
           balance: 200,
-          registered: new Date('01/10/2018 11:47:00')
+          registered: new Date('01/10/2018 11:47:00'),
+          hide: false
         },
         {
           firstName: 'Kevin',
@@ -59,8 +62,9 @@ export class UsersComponent implements OnInit {
           image: 'http://lorempixel.com/600/600/people/2',
           isActive: true,
           balance: 148,
-          registered: new Date('11/25/2018 08:59:00')
-        },
+          registered: new Date('11/25/2018 08:59:00'),
+          hide: true
+        }
       ];
       this.loaded = true;
     }, 2000);
@@ -84,10 +88,19 @@ export class UsersComponent implements OnInit {
   }
 
   fireEvent(e) {
-    console.log(e.type);
+    console.log(e.target.value);
   }
 
   addUser(user: User) {
     this.users.push(user);
+  }
+
+  toggleHide(user: User) {
+    user.hide = !user.hide;
+  }
+
+  onSubmit(e) {
+    e.preventDefault();
+    console.log('Submit');
   }
 }
