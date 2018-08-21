@@ -3,9 +3,24 @@
   <h2>Add User</h2>
   <form class="form-group" (submit)="onSubmit($event)">
     <label for="">First Name</label>
-    <input (keydown)="fireEvent($event)" type="text" class="form-control mb-3" name="firstName">
+    <input [(ngModel)]="user.firstName" type="text" class="form-control mb-3" name="firstName">
 
-    <button (click)="addUser({firstName: 'Mary', lastName: 'Jackson', isActive: true})" class="btn btn-block mb-3"
+    <label for="">Last Name</label>
+    <input [(ngModel)]="user.lastName" type="text" class="form-control mb-3" name="lastName">
+
+    <label for="">Age</label>
+    <input [(ngModel)]="user.age" type="number" class="form-control mb-3" name="age">
+
+    <label for="">Street Address</label>
+    <input [(ngModel)]="user.address.street" type="text" class="form-control mb-3" name="streetAddress">
+
+    <label for="">City</label>
+    <input [(ngModel)]="user.address.city" type="text" class="form-control mb-3" name="city">
+
+    <label for="">State</label>
+    <input [(ngModel)]="user.address.state" type="text" class="form-control mb-3" name="state">
+
+    <button [disabled]="user.firstName  == '' || user.lastName == ''" (click)="addUser()" class="btn btn-block mb-3"
             [ngClass]="currentClasses">Add New User
     </button>
   </form>
