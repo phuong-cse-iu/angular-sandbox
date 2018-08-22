@@ -1,27 +1,74 @@
 <button (click)="showUserForm = !showUserForm" class="btn btn-dark mb-3">Add User</button>
 <div class="card card-body mb-3" *ngIf="showUserForm">
   <h2>Add User</h2>
-  <form class="form-group" (submit)="onSubmit($event)">
-    <label for="">First Name</label>
-    <input [(ngModel)]="user.firstName" type="text" class="form-control mb-3" name="firstName">
+  <form class="form-group" #userForm="ngForm" (ngSubmit)="onSubmit(userForm)">
 
-    <label for="">Last Name</label>
-    <input [(ngModel)]="user.lastName" type="text" class="form-control mb-3" name="lastName">
+    <div class="form-group">
+      <label for="">First Name</label>
+      <input
+        [(ngModel)]="user.firstName"
+        type="text" class="form-control mb-3"
+        [ngClass]="{'is-invalid' : userFirstName.errors && userFirstName.touched}"
+        name="firstName"
+        #userFirstName="ngModel"
+        required="required"
+        minlength="2"
+      >
+      <div [hidden]="!userFirstName.errors?.required" class="invalid-feedback">
+        First name required
+      </div>
 
-    <label for="">Age</label>
-    <input [(ngModel)]="user.age" type="number" class="form-control mb-3" name="age">
+      <div [hidden]="!userFirstName.errors?.minlength" class="invalid-feedback">
+        Must be at least 2 characters
+      </div>
+    </div>
 
-    <label for="">Street Address</label>
-    <input [(ngModel)]="user.address.street" type="text" class="form-control mb-3" name="streetAddress">
+    <div class="form-group">
+      <label for="">Last Name</label>
+      <input
+        [(ngModel)]="user.lastName"
+        type="text"
+        class="form-control mb-3"
+        [ngClass]="{'is-invalid': userLastName.errors && userLastName.touched}"
+        name="lastName"
+        #userLastName="ngModel"
+        required
+        minlength="2"
+      >
 
-    <label for="">City</label>
-    <input [(ngModel)]="user.address.city" type="text" class="form-control mb-3" name="city">
+      <div [hidden]="!userLastName.errors?.required" class="invalid-feedback">
+        First name required
+      </div>
 
-    <label for="">State</label>
-    <input [(ngModel)]="user.address.state" type="text" class="form-control mb-3" name="state">
+      <div [hidden]="!userLastName.errors?.minlength" class="invalid-feedback">
+        Must be at least 2 characters
+      </div>
 
-    <button [disabled]="user.firstName  == '' || user.lastName == ''" (click)="addUser()" class="btn btn-block mb-3"
-            [ngClass]="currentClasses">Add New User
+    </div>
+    <div class="form-group">
+      <label for="">Email</label>
+      <input
+        [(ngModel)]="user.email"
+        type="email"
+        class="form-control mb-3"
+        [ngClass]="{'is-invalid': userEmail.errors && userEmail.touched}"
+        name="email"
+        #userEmail="ngModel"
+        required
+        pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
+      >
+
+      <div *ngIf="!userEmail.errors?.required" class="invalid-feedback">
+        Email required
+      </div>
+
+      <div *ngIf="!userEmail.errors?.pattern" class="invalid-feedback">
+        Invalid email
+      </div>
+    </div>
+
+    <button [disabled]="!userForm.form.valid" class="btn btn-block mb-3"
+            [ngClass]="{'btn-success':userForm.form.valid}">Add New User
     </button>
   </form>
 </div>
@@ -45,10 +92,7 @@
           </small>
         </h3>
         <ul *ngIf="!user.hide" class="list-group">
-          <li class="list-group-item">Age: {{ user.age }}</li>
-          <li class="list-group-item">City: {{ user.address.city }}</li>
-          <li class="list-group-item">Street: {{ user.address.street }}</li>
-          <li class="list-group-item">State: {{ user.address.state }}</li>
+          <li class="list-group-item">Email: {{ user.email }}</li>
           <li class="list-group-item">Balance: {{user.balance | currency}}</li>
           <li class="list-group-item">Date: {{user.registered | date:"longDate"}}</li>
         </ul>

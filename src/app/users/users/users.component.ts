@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {User} from '../../models/User';
 
 @Component({
@@ -10,12 +10,7 @@ export class UsersComponent implements OnInit {
   user: User = {
     firstName: '',
     lastName: '',
-    age: null,
-    address: {
-      street: '',
-      city: '',
-      state: ''
-    }
+    email: ''
   };
   users: User[];
   showExtended = true;
@@ -24,6 +19,7 @@ export class UsersComponent implements OnInit {
   currentClasses = {};
   currentStyles = {};
   showUserForm: false;
+  @ViewChild('userForm') form: any;
 
   constructor() { }
 
@@ -33,12 +29,7 @@ export class UsersComponent implements OnInit {
         {
           firstName: 'John',
           lastName: 'Doe',
-          age: 30,
-          address: {
-            street: '50 Main st',
-            city: 'Boston',
-            state: 'MA'
-          },
+          email: 'john@example.com',
           image: 'http://lorempixel.com/600/600/people/3',
           isActive: true,
           balance: 100,
@@ -48,12 +39,7 @@ export class UsersComponent implements OnInit {
         {
           firstName: 'Karen',
           lastName: 'Williams',
-          age: 36,
-          address: {
-            street: '55 Mill st',
-            city: 'Miami',
-            state: 'MA'
-          },
+          email: 'karen@gmail.com',
           image: 'http://lorempixel.com/600/600/people/1',
           isActive: false,
           balance: 200,
@@ -63,12 +49,7 @@ export class UsersComponent implements OnInit {
         {
           firstName: 'Kevin',
           lastName: 'Johnson',
-          age: 24,
-          address: {
-            street: '20 School st',
-            city: 'Lynn',
-            state: 'MA'
-          },
+          email: 'kevin@example.com',
           image: 'http://lorempixel.com/600/600/people/2',
           isActive: true,
           balance: 148,
@@ -85,7 +66,7 @@ export class UsersComponent implements OnInit {
 
   setCurrentClasses() {
     this.currentClasses = {
-      'btn-success': this.enableAdd,
+      'btn-success': this.form.get('userLastName') && this.form.get('userFirstName') && this.form.get('userEmail'),
       'big-text': this.showExtended
     };
   }
@@ -97,33 +78,16 @@ export class UsersComponent implements OnInit {
     };
   }
 
-  fireEvent(e) {
-    console.log(e.target.value);
-  }
+  onSubmit({value, valid}: { value: User, valid: boolean }) {
+    if (!valid) {
+      console.log('Form is not valid');
+    } else {
+      value.isActive = true;
+      value.registered = new Date();
+      value.hide = true;
+      this.users.unshift(value);
 
-  addUser() {
-    this.user.isActive = true;
-    this.user.registered = new Date();
-    this.users.unshift(this.user);
-
-    this.user = {
-      firstName: '',
-      lastName: '',
-      age: null,
-      address: {
-        street: '',
-        city: '',
-        state: ''
-      }
-    };
-  }
-
-  toggleHide(user: User) {
-    user.hide = !user.hide;
-  }
-
-  onSubmit(e) {
-    e.preventDefault();
-    console.log('Submit');
+      this.form.reset();
+    }
   }
 }
