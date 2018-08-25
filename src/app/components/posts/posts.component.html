@@ -1,5 +1,7 @@
-<ul class="list-unstyled">
-  <li *ngFor="let post of posts" class="card card-body mb-2">
-    {{post.body}}
-  </li>
-</ul>
+<app-post-form></app-post-form>
+<div class="card" *ngFor="let post of posts">
+  <div class="card-body">
+    <h3>{{post.title}}</h3>
+    <p>{{post.body}}</p>
+  </div>
+</div>
