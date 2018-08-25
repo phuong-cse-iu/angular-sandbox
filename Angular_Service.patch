@@ -1,0 +1,93 @@
+Index: src/app/users/users/users.component.ts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/app/users/users/users.component.ts	(revision 7c502cb321b0c00ebaf453a8e4f3c6a428f6fe13)
++++ src/app/users/users/users.component.ts	(date 1535123772852)
+@@ -1,5 +1,6 @@
+ import {Component, OnInit, ViewChild} from '@angular/core';
+ import {User} from '../../models/User';
++import {DataService} from '../../services/data.service';
+ 
+ @Component({
+   selector: 'app-users',
+@@ -21,42 +22,12 @@
+   showUserForm: false;
+   @ViewChild('userForm') form: any;
+ 
+-  constructor() { }
++  constructor(private dataService: DataService) {
++  }
+ 
+   ngOnInit() {
+     setTimeout(() => {
+-      this.users = [
+-        {
+-          firstName: 'John',
+-          lastName: 'Doe',
+-          email: 'john@example.com',
+-          image: 'http://lorempixel.com/600/600/people/3',
+-          isActive: true,
+-          balance: 100,
+-          registered: new Date('01/02/2018 08:30:00'),
+-          hide: true
+-        },
+-        {
+-          firstName: 'Karen',
+-          lastName: 'Williams',
+-          email: 'karen@gmail.com',
+-          image: 'http://lorempixel.com/600/600/people/1',
+-          isActive: false,
+-          balance: 200,
+-          registered: new Date('01/10/2018 11:47:00'),
+-          hide: false
+-        },
+-        {
+-          firstName: 'Kevin',
+-          lastName: 'Johnson',
+-          email: 'kevin@example.com',
+-          image: 'http://lorempixel.com/600/600/people/2',
+-          isActive: true,
+-          balance: 148,
+-          registered: new Date('11/25/2018 08:59:00'),
+-          hide: true
+-        }
+-      ];
++      this.users = this.dataService.getUsers();
+       this.loaded = true;
+     }, 2000);
+     // this.showExtended = true;
+@@ -85,7 +56,7 @@
+       value.isActive = true;
+       value.registered = new Date();
+       value.hide = true;
+-      this.users.unshift(value);
++      this.dataService.addUser(value);
+ 
+       this.form.reset();
+     }
+Index: src/app/app.module.ts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/app/app.module.ts	(revision 7c502cb321b0c00ebaf453a8e4f3c6a428f6fe13)
++++ src/app/app.module.ts	(date 1535036300173)
+@@ -6,6 +6,7 @@
+ import {UsersComponent} from './users/users/users.component';
+ import {NavbarComponent} from './components/navbar/navbar.component';
+ import {FormsModule} from '@angular/forms';
++import {DataService} from './services/data.service';
+ 
+ @NgModule({
+   declarations: [
+@@ -18,7 +19,7 @@
+     BrowserModule,
+     FormsModule
+   ],
+-  providers: [],
++  providers: [DataService],
+   bootstrap: [AppComponent]
+ })
+ export class AppModule { }
