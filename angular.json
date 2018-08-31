@@ -24,13 +24,13 @@
             ],
             "styles": [
               "src/styles.css",
-              "../my-first-angular-app/node_modules/bootstrap/dist/css/bootstrap.css",
-              "../my-first-angular-app/node_modules/font-awesome/css/font-awesome.css"
+              "../angular-sandbox/node_modules/bootstrap/dist/css/bootstrap.css",
+              "../angular-sandbox/node_modules/font-awesome/css/font-awesome.css"
             ],
             "scripts": [
-              "../my-first-angular-app/node_modules/jquery/dist/jquery.js",
-              "../my-first-angular-app/node_modules/popper.js/dist/umd/popper.js",
-              "../my-first-angular-app/node_modules/bootstrap/dist/js/bootstrap.js"
+              "../angular-sandbox/node_modules/jquery/dist/jquery.js",
+              "../angular-sandbox/node_modules/popper.js/dist/umd/popper.js",
+              "../angular-sandbox/node_modules/bootstrap/dist/js/bootstrap.js"
             ]
           },
           "configurations": {
